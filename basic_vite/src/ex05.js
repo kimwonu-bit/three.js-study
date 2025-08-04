@@ -39,7 +39,8 @@ export default function example() {
   scene.add(mesh);
 
   function draw() {
-    mesh.rotation.y += 0.1;
+    mesh.rotation.y += THREE.MathUtils.degToRad(1);
+    mesh.rotation.x += THREE.MathUtils.degToRad(1);
     renderer.render(scene, camera);
     requestAnimationFrame(draw);
   }
@@ -52,7 +53,6 @@ export default function example() {
   }
 
   window.addEventListener("resize", setSize);
-
 
   draw();
 }
