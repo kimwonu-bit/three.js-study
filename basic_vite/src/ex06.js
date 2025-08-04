@@ -39,18 +39,14 @@ export default function example() {
   const mesh = new THREE.Mesh(geometry, material);
   scene.add(mesh);
 
-
   const clock = new THREE.Clock();
 
   function draw() {
-    const time =clock.getElapsedTime();
-    mesh.rotation.y += THREE.MathUtils.degToRad(1);
-    mesh.rotation.x += THREE.MathUtils.degToRad(1);
+    //시간 간격을 측정하는 delta를 이용하여 어는 기기에서든 동일한 속도로 작동하도록 하기
+    const delta = clock.getDelta();
 
-
-    /*mesh.rotation.x = 3*time;
-    mesh.rotation.x += 0.1;//어떤 기기에서든 동일한 속도*/
-
+    mesh.rotation.x += 3*delta;
+    mesh.rotation.y += delta;
 
     renderer.render(scene, camera);
     requestAnimationFrame(draw);
