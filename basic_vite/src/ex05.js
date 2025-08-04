@@ -39,11 +39,10 @@ export default function example() {
   scene.add(mesh);
 
   function draw() {
-    //그리기
+    mesh.rotation.y += 0.1;
     renderer.render(scene, camera);
     requestAnimationFrame(draw);
   }
-  draw(); // 첫 실행
 
   function setSize() {
     camera.aspect = window.innerWidth / window.innerHeight;
@@ -53,4 +52,7 @@ export default function example() {
   }
 
   window.addEventListener("resize", setSize);
+
+
+  draw();
 }
