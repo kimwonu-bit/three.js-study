@@ -8,16 +8,21 @@ export default function example() {
   const renderer = new THREE.WebGLRenderer({
     canvas,
     antialias: true, //계단 현상 제거
-    alpha: true, //이 코드를 써야 setClearAlpha() 함수 사용 가능
   });
   renderer.setSize(window.innerWidth, window.innerHeight);
   renderer.setPixelRatio(window.devicePixelRatio > 1 ? 2 : 1);
-  renderer.setClearAlpha(0.5); //인자를 0 ~ 1 사이의 수로 받아 불투명도를 정할 수 있음
-  renderer.setClearColor("green");
+//   renderer.setClearColor("green");
 
   //씬
   const scene = new THREE.Scene();
   //   scene.background = new.THREE.Color('blue');//씬 자체에 칠하는 것.오류 이유 모름...
+
+
+  //빛
+  const light = new THREE.DirectionalLight(0xffffff, 1);//두번째 인자로 빛의 강도 조절 가능
+  light.position.z = 2;
+  scene.add(light);
+
 
   //카메라
   const camera = new THREE.PerspectiveCamera(
@@ -27,11 +32,10 @@ export default function example() {
     1000
   );
 
-  camera.position.set(1, 2, 5);
+  camera.position.set(2, 2, 5);
   scene.add(camera);
 
-  const light = new THREE.DirectionalLight(0xffffff, 1);
-  scene.add(light)
+
 
 
   const geometry = new THREE.BoxGeometry(1, 1, 1);
