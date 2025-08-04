@@ -1,9 +1,14 @@
 import * as THREE from "three";
+import { Sequence } from "three/examples/jsm/libs/tween.module.js";
 
 export default function example() {
   const canvas = document.querySelector("#three-canvas");
-  const renderer = new THREE.WebGLRenderer({ canvas, antialias: true });
+  const renderer = new THREE.WebGLRenderer({
+    canvas,
+    antialias: true,
+  });
   renderer.setSize(window.innerWidth, window.innerHeight);
+  renderer.setPixelRatio(window.devicePixelRatio > 1 ? 2 : 1);
 
   const scene = new THREE.Scene();
 
@@ -31,12 +36,10 @@ export default function example() {
 
   // ✅ 리사이즈 대응
   function setSize() {
-    const width = window.innerWidth;
-    const height = window.innerHeight;
-    camera.aspect = width / height;
+    camera.aspect = window.innerWidth / window.innerHeight;
     camera.updateProjectionMatrix();
-
-    renderer.setSize(width, height);
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.render(scene, camera);
   }
 
   window.addEventListener("resize", setSize);
