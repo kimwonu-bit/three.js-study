@@ -2,7 +2,8 @@ import * as THREE from "three";
 import { ThreeMFLoader } from "three/examples/jsm/Addons.js";
 import { Sequence } from "three/examples/jsm/libs/tween.module.js";
 import { reduceVertices } from "three/examples/jsm/utils/SceneUtils.js";
-import { modelWorldMatrix, time } from "three/tsl";
+// import { modelWorldMatrix, time } from "three/tsl";
+import gsap from "gsap";
 
 export default function example() {
   //렌더러
@@ -39,32 +40,28 @@ export default function example() {
 
   const geometry = new THREE.BoxGeometry(1, 1, 1);
   const material = new THREE.MeshStandardMaterial({ color: "red" });
-  const meshes = [];
-  let mesh;
-  for (let i = 0; i < 10; i++) {
-    mesh = new THREE.Mesh(geometry, material);
-    mesh.position.x = Math.random() * 5 - 2.5;
-    mesh.position.z = Math.random() * 5 - 2.5;
-    scene.add(mesh);
-    meshes.push(mesh);
-  }
+  const mesh = new THREE.Mesh(geometry, material);
   scene.add(mesh);
 
   let oldtime = Date.now();
 
   function draw() {
-    //js 내장 기능으로 어떤기기에서든 동일한 속도로 작동하게 하기
     const newTime = Date.now();
     const deltaTime = newTime - oldtime;
     oldtime = newTime;
 
-    meshes.forEach((item) => {
-      item.rotation.y += deltaTime * 0.001;
-    });
+    mesh.rotation.y += deltaTime * 0.001; // 단일 'mesh' 객체 애니메이션
 
     renderer.render(scene, camera);
     requestAnimationFrame(draw);
   }
+
+  //gsap
+  gsap.to(mesh.position, {
+    duration: 1,
+    y: 2,
+    z: 3,
+  });
 
   function setSize() {
     camera.aspect = window.innerWidth / window.innerHeight;
